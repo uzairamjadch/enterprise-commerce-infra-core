@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Infrastructure Core Pipeline</title>
+    <style>
+        :root {
+            --bg-dark: #0D1117;
+            --bg-card: #161B22;
+            --accent-tech: #4C7CD1;
+            --accent-growth: #10b981;
+            --text-main: #E6EDF3;
+            --text-muted: #8B949E;
+            --border: #30363D;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body {
+            background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        .dashboard-container { width: 100%; max-width: 600px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        .terminal-bar { background: #0D1117; border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; justify-content: space-between; }
+        .term-dots { display: flex; gap: 6px; align-items: center; }
+        .t-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+        .t-dot:nth-child(1) { background: #FF5F56; }
+        .t-dot:nth-child(2) { background: #FFBD2E; }
+        .t-dot:nth-child(3) { background: #27C93F; }
+        .term-title { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
+        .content { padding: 40px; }
+        h1 { font-size: 1.3rem; font-family: var(--font-mono); margin-bottom: 24px; text-align: center; }
+        .btn-trigger {
+            width: 100%; background: var(--accent-tech); color: white; border: none; padding: 14px;
+            font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; border-radius: 4px; cursor: pointer;
+        }
+        .btn-trigger:hover { background: #3563B3; }
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <div class="terminal-bar">
+        <div class="term-dots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
+        <div class="term-title">infrastructure_telemetry.sh</div>
+        <div></div>
+    </div>
+    <div class="content">
+        <h1>System Analytics Matrix</h1>
+        <button class="btn-trigger" onclick="alert('System Engine Active and Initialized!')">INITIALIZE PIPELINE CORRESPONDENCE</button>
+    </div>
+</div>
+</body>
+</html>
