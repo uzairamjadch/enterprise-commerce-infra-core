@@ -1,0 +1,14 @@
+{
+  "name": "enterprise-infra-core",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "API",
+    "WEB"
+  ],
+  "scripts": {
+    "install-all": "npm install --workspace=API",
+    "dev:api": "node API/server.js",
+    "start": "npm run dev:api"
+  }
+}
