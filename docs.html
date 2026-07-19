@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infra Core — Documentation Portal</title>
+  <style>
+    :root {
+      --bg-slate: #030712;
+      --glass-surface: rgba(17, 24, 39, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #3b82f6;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-slate);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      border-right: 1px solid var(--glass-border);
+      background: rgba(17, 24, 39, 0.2);
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding-left: 12px;
+    }
+
+    .sidebar-item {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-item:hover { background: var(--glass-surface); color: var(--text-main); }
+    .sidebar-item.active {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: var(--accent-blue);
+      color: var(--text-main);
+    }
+
+    .content-area { flex: 1; padding: 60px 80px; max-width: 900px; }
+    .doc-section { display: none; }
+    .doc-section.active { display: block; animation: tabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    h1 { font-size: 32px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+    p { color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+    pre {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid var(--glass-border);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    code { font-family: monospace; color: #e1e7ef; font-size: 14px; }
+
+    .nav-home-link { margin-bottom: 24px; display: inline-block; color: var(--accent-blue); text-decoration: none; font-size: 14px; }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <a href="index.html" class="nav-home-link">← System Gateway</a>
+    <div class="sidebar-title">Core Specifications</div>
+    <button class="sidebar-item active" onclick="switchTab('quickstart')">Quick Start Engine</button>
+    <button class="sidebar-item" onclick="switchTab('workspace')">Workspace Partitioning</button>
+    <button class="sidebar-item" onclick="switchTab('contracts')">API Runtime Contracts</button>
+  </div>
+
+  <div class="content-area">
+    <div id="quickstart" class="doc-section active">
+      <h1>Quick Start Engine</h1>
+      <p>Initiate ecosystem tracking loops locally from the workspace root container.</p>
+      <pre><code>npm install\nnpm start</code></pre>
+    </div>
+
+    <div id="workspace" class="doc-section">
+      <h1>Workspace Partitioning</h1>
+      <p>The system layout tracks processes across clean architecture domains using workspaces.</p>
+      <pre><code>/enterprise-infra-core\n  ├── package.json\n  ├── API/ (Express server.js)\n  └── WEB/ (dashboard.html)</code></pre>
+    </div>
+
+    <div id="contracts" class="doc-section">
+      <h1>API Runtime Contracts</h1>
+      <p>Data metrics pull from port 5000 utilizing structured JSON format boundaries.</p>
+      <pre><code>GET /api/v1/analytics/overview\n{\n  "status": "success",\n  "data": { "systemThroughput": "1450 req/s" }\n}</code></pre>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(sectionId) {
+      document.querySelectorAll('.doc-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>

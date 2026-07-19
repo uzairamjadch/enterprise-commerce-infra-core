@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise Infra Core — Gateway Platform</title>
+  <style>
+    :root {
+      --bg-slate: #030712;
+      --glass-surface: rgba(17, 24, 39, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #3b82f6;
+      --accent-green: #10b981;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-slate);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .background-glow {
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .background-glow-bottom {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, transparent 70%);
+      bottom: -100px;
+      right: -100px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .gateway-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .animate-fade-down {
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-stagger-1 { animation-delay: 0.1s; }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .hero-section h1 {
+      font-size: 54px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-section p {
+      font-size: 19px;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .navigation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    .nav-card {
+      background: var(--glass-surface);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 32px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .nav-card:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.25);
+      background: rgba(17, 24, 39, 0.6);
+    }
+
+    .nav-card .icon {
+      font-size: 32px;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-card:hover .icon {
+      transform: scale(1.15);
+    }
+
+    .nav-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .system-overview-section {
+      background: var(--glass-surface);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .features-list-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .feature-item-box {
+      border-left: 2px solid var(--glass-border);
+      padding-left: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .feature-item-box:hover {
+      border-color: var(--accent-blue);
+    }
+
+    .feature-item-box h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .feature-item-box p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    @keyframes fadeDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-glow"></div>
+  <div class="background-glow-bottom"></div>
+  
+  <div class="gateway-container">
+    <header class="hero-section animate-fade-down animate-stagger-1">
+      <h1>Enterprise Infrastructure Core</h1>
+      <p>High-performance workspace cluster dashboard engine. Open local orchestration views below to audit active telemetry streams.</p>
+    </header>
+
+    <nav class="navigation-grid">
+      <a href="WEB/dashboard.html" class="nav-card">
+        <div class="icon">📊</div>
+        <h3>Live Telemetry Stream</h3>
+        <p>Monitor real-time fluctuating runtime node transactions and pipeline logs.</p>
+      </a>
+      <a href="topology.html" class="nav-card">
+        <div class="icon">🌐</div>
+        <h3>Cluster Topology</h3>
+        <p>Analyze structural component routing hierarchies and active system node models.</p>
+      </a>
+      <a href="docs.html" class="nav-card">
+        <div class="icon">📄</div>
+        <h3>Core Specifications</h3>
+        <p>Audit system runtime contracts, quick start scripts, and structural configurations.</p>
+      </a>
+    </nav>
+
+    <section class="system-overview-section">
+      <h2 class="section-title">⚡ Operational Cluster Infrastructure Architecture</h2>
+      <div class="features-list-grid">
+        <div class="feature-item-box">
+          <h4>Monorepo Workspace Isolation</h4>
+          <p>Divided cleanly across distinct service environments using workspaces configurations to prevent cross-contamination.</p>
+        </div>
+        <div class="feature-item-box">
+          <h4>Hardware-Accelerated Layouts</h4>
+          <p>Leverages native CSS backdrop rendering filters to guarantee modern styling performance profiles.</p>
+        </div>
+        <div class="feature-item-box">
+          <h4>Real-Time Telemetry Pipeline</h4>
+          <p>Continuous internal data streams connect directly into custom server telemetry endpoints via JSON format rules.</p>
+        </div>
+        <div class="feature-item-box">
+          <h4>Automated Loop Handling</h4>
+          <p>Intelligent polling mechanisms maintain low-overhead client tracking connections effortlessly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="system-overview-section">
+      <h2 class="section-title">⚙️ Sub-System Status Indicators</h2>
+      <div class="features-list-grid">
+        <div class="feature-item-box" style="border-left-color: var(--accent-green);">
+          <h4>API Analytics Gateway (Port: 5000)</h4>
+          <p>Online. Serving dynamic environment logging data blocks smoothly.</p>
+        </div>
+        <div class="feature-item-box" style="border-left-color: var(--accent-blue);">
+          <h4>Client Asset Space Engine</h4>
+          <p>Online. Modern client presentation system running with fast layout transitions.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
