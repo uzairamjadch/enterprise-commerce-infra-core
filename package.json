@@ -1,14 +1,24 @@
 {
   "name": "enterprise-infra-core",
   "version": "1.0.0",
+  "description": "Enterprise-grade multi-tenant monorepo infrastructure control suite",
   "private": true,
   "workspaces": [
     "API",
     "WEB"
   ],
   "scripts": {
-    "install-all": "npm install --workspace=API",
-    "dev:api": "node API/server.js",
-    "start": "npm run dev:api"
-  }
+    "start": "node API/server.js",
+    "api:dev": "npm run dev --workspace=API",
+    "web:serve": "echo 'Launch index.html via Live Server to review the gateway orchestration layers.'"
+  },
+  "keywords": [
+    "monorepo",
+    "npm-workspaces",
+    "express",
+    "multi-tenant",
+    "glassmorphic"
+  ],
+  "author": "",
+  "license": "ISC"
 }
